@@ -18,9 +18,13 @@ OPÇÕES DO MENU:
 def desenhar_linha(tam: int = 30) -> None:
     print("~" * tam)
 
+def desenhar_titulo(titulo: str) -> None:
+    desenhar_linha()
+    print(f"{titulo.upper():^30}")
+    desenhar_linha()
 
 
 # Programa principal
-desenhar_linha()
+desenhar_titulo("pipi popo")
 
 
