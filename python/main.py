@@ -1,60 +1,13 @@
-import os
+import desenho
 import random
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#               FUNÇÕES/PROCEDIMENTOS DE "DESENHO"
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-def desenhar_linha(tam: int = 30) -> None:
-    print("~" * tam)
-
-
-def desenhar_titulo(titulo: str) -> None:
-    desenhar_linha()
-    print(f"{titulo.upper():^30}")
-    desenhar_linha()
-
-
-def menu_principal() -> None:
-    os.system("cls")
-    print('''OPÇÕES DO MENU:
-1 - Descrição do projeto
-2 - Cadastrar localização
-3 - Índice UV atual
-4 - Recomendações de proteção
-5 - Dados Históricos
-6 - Informações sobre grupos de risco
-0 - Sair''')
-    
-    while True:
-        opcao = input("Escolha: ")
-        match opcao:
-            case "1":
-                print()
-            
-            case "2":
-                print()
-            
-            case "3":
-                print()
-            
-            case "4":
-                print()
-            
-            case "5":
-                print()
-            
-            case "6":
-                print()
-            
-            case "0":
-                print()
-           
-            case _:
-                print()
-
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#               FUNÇÕES/PROCEDIMENTOS DO SISTEMA
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def cadastrar_localizacao() -> None:
+    desenho.titulo("CADASTRO DE LOCALIZAÇÃO")
+    print("Cadastre sua localização atual para usar\nas funcionalidades do sistema")
     bairro = input("Bairro: ")
     cidade = input("Cidade")
     rua = input("Rua: ")
@@ -91,8 +44,58 @@ def mostrar_grau_uv(uv):
     print(f"O UV atual da sua localização é {uv}, {risco}")
 
 
+def mostra_descricao() -> None:
+    desenho.titulo("DESCRIÇÃO DO PROJETO")
+    print(f"DESCRICAO")
+    desenho.linha()
 
-# Programa principal
-desenhar_titulo("pipi popo")
+
+def menu_principal() -> None:
+    desenho.limpar_tela()
+    print('''OPÇÕES DO MENU:
+1 - Descrição do projeto
+2 - Cadastrar localização
+3 - Índice UV atual
+4 - Recomendações de proteção
+5 - Dados Históricos
+6 - Informações sobre grupos de risco
+0 - Sair''')
+    
+    while True:
+        opcao = input("Escolha: ")
+        match opcao:
+            case "1":
+                mostra_descricao()
+            
+            case "2":
+                cadastrar_localizacao()
+            
+            case "3":
+                print()
+            
+            case "4":
+                print()
+            
+            case "5":
+                print()
+            
+            case "6":
+                print()
+            
+            case "0":
+                print()
+           
+            case _:
+                print()
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                       PROGRAMA PRINCIPAL                       
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# POSSIVEIS APIS:
+#
+# Open Street maps
+# Google api
+#
 
 
