@@ -15,46 +15,60 @@ condicao = ""
 cor = ""
 
 def cadastrar_cliente() -> None:
+    global cliente_cadastrado, nome, idade, condicao, cor
+
     desenho.titulo("CADASTRO DE CLIENTE")
-    print("\nCadastre suas informações pessoais\n")
 
-    # Nome
-    nome = input("Nome: ")
+    if cliente_cadastrado == True:
+        print("Cliente já cadastrado!")
+        print("Deseja cadastrar de novo? (S/N)")
+        validador = input("")
+        
+        if validador.strip().lower() == "s":
+            cliente_cadastrado = False
+    
+    if cliente_cadastrado == False:
+        print("\nCadastre suas informações pessoais\n")
 
-    # Idade
-    idade = input("Idade: ")
+        # Nome
+        nome = input("Nome: ")
 
-    # Validação da idade
-    while True:
-        if not idade.isnumeric():
-            print("Idade inválida!")
-            idade = input("Idade: ")
-        else:
-            idade = int(idade)
+        # Idade
+        idade = input("Idade: ")
 
-            if idade < 0 or idade > 100:
+        # Validação da idade
+        while True:
+            if not idade.isnumeric():
                 print("Idade inválida!")
                 idade = input("Idade: ")
             else:
-                break
+                idade = int(idade)
 
-    # Condicao
-    validador = input("Você tem alguma condição especial? (S/N)")
+                if idade < 0 or idade > 100:
+                    print("Idade inválida!")
+                    idade = input("Idade: ")
+                else:
+                    break
 
-    if validador.strip().lower() == "s":
-        condicao = input("Digite o nome dela: ")
+        # Condicao
+        validador = input("Você tem alguma condição especial? (S/N)")
 
-    # Cor da pele
-    cores = ["branco", "pardo", "preto"]
-    print("Qual o tom mais perto do tom da sua pele? (branco/pardo/preto)")
-    cor = input("").lower().strip()
+        if validador.strip().lower() == "s":
+            condicao = input("Digite o nome dela: ")
 
-    while cor not in cores:
-        print("Tom inválido!")
+        # Cor da pele
+        cores = ["branco", "pardo", "preto"]
         print("Qual o tom mais perto do tom da sua pele? (branco/pardo/preto)")
         cor = input("").lower().strip()
 
-    print("Cadastrando Usuario...")
+        while cor not in cores:
+            print("Tom inválido!")
+            print("Qual o tom mais perto do tom da sua pele? (branco/pardo/preto)")
+            cor = input("").lower().strip()
+        
+        cliente_cadastrado = True
+        print("Cadastrando Usuario...")
+    
     desenho.esperar(1)
 
 
