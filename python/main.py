@@ -24,12 +24,20 @@ def cadastrar_cliente() -> None:
     # Idade
     idade = input("Idade: ")
 
-    while not idade.isnumeric():
-        print("Idade inválida!")
-        idade = input("Idade: ")
-    else:
-        idade = int(idade)
-    
+    # Validação da idade
+    while True:
+        if not idade.isnumeric():
+            print("Idade inválida!")
+            idade = input("Idade: ")
+        else:
+            idade = int(idade)
+
+            if idade < 0 or idade > 100:
+                print("Idade inválida!")
+                idade = input("Idade: ")
+            else:
+                break
+
     # Condicao
     validador = input("Você tem alguma condição especial? (S/N)")
 
@@ -45,6 +53,9 @@ def cadastrar_cliente() -> None:
         print("Tom inválido!")
         print("Qual o tom mais perto do tom da sua pele? (branco/pardo/preto)")
         cor = input("").lower().strip()
+
+    print("Cadastrando Usuario...")
+    desenho.esperar(1)
 
 
 # ~~~~~~~~~ LOCALIZAÇÃO ~~~~~~~~~
