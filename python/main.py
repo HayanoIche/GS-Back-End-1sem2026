@@ -25,10 +25,11 @@ def cadastrar_cliente() -> None:
         validador = input("")
         validador = validador.strip().lower()
 
-        while validador != "s" or validador != "n":
+        while validador != "s" and validador != "n":
             print("Valor inválido!")
             print("Deseja cadastrar de novo? (S/N)")
             validador = input("")
+            validador = validador.strip().lower()
         
         if validador == "s":
             cliente_cadastrado = False
