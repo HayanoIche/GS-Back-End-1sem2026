@@ -5,14 +5,62 @@ import random
 #               FUNÇÕES/PROCEDIMENTOS DO SISTEMA
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# ~~~~~~~~~ CLIENTE ~~~~~~~~~
+
+cliente_cadastrado = False
+
+nome = ""
+idade = 0
+condicao = ""
+cor = ""
+
+def cadastrar_cliente() -> None:
+    desenho.titulo("CADASTRO DE CLIENTE")
+    print("\nCadastre suas informações pessoais\n")
+
+    # Nome
+    nome = input("Nome: ")
+
+    # Idade
+    idade = input("Idade: ")
+
+    while not idade.isnumeric():
+        print("Idade inválida!")
+        idade = input("Idade: ")
+    else:
+        idade = int(idade)
+    
+    # Condicao
+    validador = input("Você tem alguma condição especial? (S/N)")
+
+    if validador.strip().lower() == "s":
+        condicao = input("Digite o nome dela: ")
+
+    # Cor da pele
+    cor = input("Qual o tom mais perto do tom da sua pele? (branco/pardo/preto)")
+
+
+# ~~~~~~~~~ LOCALIZAÇÃO ~~~~~~~~~
+
+localizacao_cadastrada = False
+
+pais = ""
+estado = ""
+cidade = ""
+
 def cadastrar_localizacao() -> None:
     desenho.titulo("CADASTRO DE LOCALIZAÇÃO")
-    print("Cadastre sua localização atual para usar\nas funcionalidades do sistema")
-    bairro = input("Bairro: ")
-    cidade = input("Cidade")
-    rua = input("Rua: ")
-    numero = input("Número: ")
-        
+
+    print("\nCadastre sua localização atual\n")
+
+    pais = input("País: ")
+    pais = input("Estado: ")
+    cidade = input("Cidade: ")
+
+    localizacao_cadastrada = True
+
+
+# ~~~~~~~~~ UV ~~~~~~~~~
 
 def calcular_uv() -> int:
     uv = random.randint(0, 16)
@@ -43,6 +91,7 @@ def mostrar_grau_uv(uv):
 
     print(f"O UV atual da sua localização é {uv}, {risco}")
 
+# ~~~~~~~~~ UV ~~~~~~~~~
 
 def mostra_descricao() -> None:
     desenho.titulo("DESCRIÇÃO DO PROJETO")
@@ -50,47 +99,67 @@ def mostra_descricao() -> None:
     desenho.linha()
 
 
-def menu_principal() -> None:
+def mostrar_menu_principal() -> None:
     desenho.limpar_tela()
-    print('''OPÇÕES DO MENU:
+    desenho.titulo("HELION HEALTH")
+
+    print('''
 1 - Descrição do projeto
-2 - Cadastrar localização
-3 - Índice UV atual
-4 - Recomendações de proteção
-5 - Dados Históricos
+2 - Cadastrar dados pessoais
+3 - Cadastrar localização
+4 - Índice UV atual
+5 - Recomendações de proteção
 6 - Informações sobre grupos de risco
-0 - Sair''')
-    
-    while True:
-        opcao = input("Escolha: ")
-        match opcao:
-            case "1":
-                mostra_descricao()
-            
-            case "2":
-                cadastrar_localizacao()
-            
-            case "3":
-                print()
-            
-            case "4":
-                print()
-            
-            case "5":
-                print()
-            
-            case "6":
-                print()
-            
-            case "0":
-                print()
-           
-            case _:
-                print()
+0 - Sair
+''')
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                       PROGRAMA PRINCIPAL                       
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+desenho.limpar_tela()
+desenho.titulo("BEM VINDO AO HELION HEALTH")
+desenho.esperar(1.5)
+
+while True:
+    mostrar_menu_principal()
+
+    opcao = input("Escolha: ")
+    desenho.limpar_tela()
+
+    match opcao:
+        case "1":
+            mostra_descricao()
+        
+        case "2":
+            cadastrar_cliente()
+
+        case "3":
+            cadastrar_localizacao()
+
+        case "4":
+            print()
+        
+        case "5":
+            print()
+        
+        case "6":
+            print()
+        
+        case "0":
+            desenho.limpar_tela()
+            desenho.titulo("HELION HEALTH")
+            print("\nSaindo. . .\n")
+            desenho.esperar(1)
+            desenho.limpar_tela()
+            break
+        
+        case _:
+            desenho.limpar_tela()
+            desenho.titulo("HELION HEALTH")
+            print("\nDigite um valor válido!\n")
+            desenho.esperar(1)
+            desenho.limpar_tela()
 
 # POSSIVEIS APIS:
 #

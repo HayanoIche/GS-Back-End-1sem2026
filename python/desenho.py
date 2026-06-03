@@ -34,3 +34,8 @@ def limpar_tela():
 
 def esperar(tempo: float = .75) -> None:
     time.sleep(tempo)
+
+def espera_entrada() -> None:
+    print("")
+    input("APERTE [ENTER] PARA CONTINUAR. . .")
+
