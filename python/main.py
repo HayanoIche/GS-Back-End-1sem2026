@@ -72,7 +72,7 @@ def cadastrar_localizacao() -> None:
     print("\nCadastre sua localização atual\n")
 
     pais = input("País: ")
-    pais = input("Estado: ")
+    estado = input("Estado: ")
     cidade = input("Cidade: ")
 
     localizacao_cadastrada = True
