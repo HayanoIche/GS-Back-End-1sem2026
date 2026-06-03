@@ -90,13 +90,29 @@ cidade = ""
 def cadastrar_localizacao() -> None:
     desenho.titulo("CADASTRO DE LOCALIZAÇÃO")
 
-    print("\nCadastre sua localização atual\n")
+    if localizacao_cadastrada == True:
+        print("Cliente já cadastrado!")
+        print("Deseja cadastrar de novo? (S/N)")
+        validador = input("")
+        validador = validador.strip().lower()
 
-    pais = input("País: ")
-    estado = input("Estado: ")
-    cidade = input("Cidade: ")
+        while validador != "s" and validador != "n":
+            print("Valor inválido!")
+            print("Deseja cadastrar de novo? (S/N)")
+            validador = input("")
+            validador = validador.strip().lower()
+        
+        if validador == "s":
+            localizacao_cadastrada = False
+    
+    if localizacao_cadastrada == False:
+        print("\nCadastre sua localização atual\n")
 
-    localizacao_cadastrada = True
+        pais = input("País: ")
+        estado = input("Estado: ")
+        cidade = input("Cidade: ")
+
+        localizacao_cadastrada = True
 
 
 # ~~~~~~~~~ UV ~~~~~~~~~
