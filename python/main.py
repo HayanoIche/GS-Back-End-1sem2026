@@ -16,10 +16,10 @@ cor = ""
 
 def cadastrar_cliente() -> None:
     global cliente_cadastrado, nome, idade, condicao, cor
-
-    desenho.titulo("CADASTRO DE CLIENTE")
-
+    
     if cliente_cadastrado == True:
+        desenho.limpar_tela()
+        desenho.titulo("CADASTRO DE CLIENTE")
         print("Cliente já cadastrado!")
         print("Deseja cadastrar de novo? (S/N)")
         validador = input("")
@@ -33,8 +33,12 @@ def cadastrar_cliente() -> None:
         
         if validador == "s":
             cliente_cadastrado = False
+        else:
+            print("saindo. . .")
     
     if cliente_cadastrado == False:
+        desenho.limpar_tela()
+        desenho.titulo("CADASTRO DE CLIENTE")
         print("\nCadastre suas informações pessoais\n")
 
         # Nome
@@ -88,10 +92,12 @@ estado = ""
 cidade = ""
 
 def cadastrar_localizacao() -> None:
-    desenho.titulo("CADASTRO DE LOCALIZAÇÃO")
+    global localizacao_cadastrada, pais, estado, cidade
 
     if localizacao_cadastrada == True:
-        print("Cliente já cadastrado!")
+        desenho.limpar_tela()
+        desenho.titulo("CADASTRO DE LOCALIZAÇÃO")
+        print("Localização já cadastrada!")
         print("Deseja cadastrar de novo? (S/N)")
         validador = input("")
         validador = validador.strip().lower()
@@ -104,8 +110,12 @@ def cadastrar_localizacao() -> None:
         
         if validador == "s":
             localizacao_cadastrada = False
+        else:
+            print("saindo. . .")
     
     if localizacao_cadastrada == False:
+        desenho.limpar_tela()
+        desenho.titulo("CADASTRO DE LOCALIZAÇÃO")
         print("\nCadastre sua localização atual\n")
 
         pais = input("País: ")
@@ -113,6 +123,9 @@ def cadastrar_localizacao() -> None:
         cidade = input("Cidade: ")
 
         localizacao_cadastrada = True
+        print("Cadastrando Localização...")
+
+    desenho.esperar()
 
 
 # ~~~~~~~~~ UV ~~~~~~~~~
