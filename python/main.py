@@ -38,9 +38,13 @@ def cadastrar_cliente() -> None:
 
     # Cor da pele
     cores = ["branco", "pardo", "preto"]
+    print("Qual o tom mais perto do tom da sua pele? (branco/pardo/preto)")
+    cor = input("").lower().strip()
 
     while cor not in cores:
-        cor = input("Qual o tom mais perto do tom da sua pele? (branco/pardo/preto)").lower().strip()
+        print("Tom inválido!")
+        print("Qual o tom mais perto do tom da sua pele? (branco/pardo/preto)")
+        cor = input("").lower().strip()
 
 
 # ~~~~~~~~~ LOCALIZAÇÃO ~~~~~~~~~
