@@ -37,7 +37,10 @@ def cadastrar_cliente() -> None:
         condicao = input("Digite o nome dela: ")
 
     # Cor da pele
-    cor = input("Qual o tom mais perto do tom da sua pele? (branco/pardo/preto)")
+    cores = ["branco", "pardo", "preto"]
+
+    while cor not in cores:
+        cor = input("Qual o tom mais perto do tom da sua pele? (branco/pardo/preto)").lower().strip()
 
 
 # ~~~~~~~~~ LOCALIZAÇÃO ~~~~~~~~~
@@ -76,16 +79,16 @@ def mostrar_grau_uv():
 
 
 def risco_uv_usuario(uv):
-    if uv >= 2:
+    if uv <= 2:
         risco = "Risco mínimo"
     
-    elif uv >= 5:
+    elif uv <= 5:
         risco = "Risco moderado"
     
-    elif uv >= 7:
+    elif uv <= 7:
         risco = "Risco alto"
     
-    elif uv >= 10:
+    elif uv <= 10:
         risco = "Risco muito alto"
     
     else: 
@@ -93,13 +96,15 @@ def risco_uv_usuario(uv):
 
     print(f"O UV atual da sua localização é {uv}, {risco}")
 
-# ~~~~~~~~~ UV ~~~~~~~~~
+# ~~~~~~~~~ DESCRIÇÃO ~~~~~~~~~
 
 def mostra_descricao() -> None:
     desenho.titulo("DESCRIÇÃO DO PROJETO")
     print(f"DESCRICAO")
     desenho.linha()
+    desenho.espera_entrada()
 
+# ~~~~~~~~~ MENU PRINCIPAL ~~~~~~~~~
 
 def mostrar_menu_principal() -> None:
     desenho.limpar_tela()
@@ -145,7 +150,7 @@ while True:
             desenho.linha(120)
             input("[ENTER] para Calcular UV")  
             calcular_uv()
-            print("Calculando UV, da sua região...")
+            print(f"Calculando UV, da região de {cidade}...")
             desenho.esperar() 
             risco_uv_usuario(calcular_uv())
             desenho.espera_entrada()
