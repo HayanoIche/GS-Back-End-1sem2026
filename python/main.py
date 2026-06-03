@@ -67,13 +67,15 @@ def calcular_uv() -> int:
     return uv
 
 
-def mostrar_grau_uv(uv):
+def mostrar_grau_uv():
     print('''0 a 2 (Baixo): Risco mínimo. Seguro para exposição ao ar livre.
 3 a 5 (Moderado): Risco moderado. Requer o uso de óculos de sol e proteção caso fique exposto ao sol.
 6 a 7 (Alto): Risco alto. Proteção é essencial; procure sombra durante o meio do dia e use chapéu e protetor solar.
 8 a 10 (Muito Alto): Risco muito alto. Requer proteção redobrada, pois queimaduras podem ocorrer rapidamente. Evite o sol entre 10h e 16h.
 11 ou mais (Extremamente Alto): Risco extremo. A exposição desprotegida pode causar queimaduras em poucos minutos. Proteção total obrigatória.''')
-    
+
+
+def risco_uv_usuario(uv):
     if uv >= 2:
         risco = "Risco mínimo"
     
@@ -138,8 +140,16 @@ while True:
             cadastrar_localizacao()
 
         case "4":
-            print()
-        
+            desenho.linha(120)
+            mostrar_grau_uv()
+            desenho.linha(120)
+            input("[ENTER] para Calcular UV")  
+            calcular_uv()
+            print("Calculando UV, da sua região...")
+            desenho.esperar() 
+            risco_uv_usuario(calcular_uv())
+            desenho.espera_entrada()
+
         case "5":
             print()
         
