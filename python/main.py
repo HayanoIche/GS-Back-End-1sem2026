@@ -101,7 +101,7 @@ estado = ""
 cidade = ""
 
 def cadastrar_localizacao() -> None:
-    global localizacao_cadastrada, pais, estado, cidade
+    global localizacao_cadastrada, pais, estado, cidade, uv_calculado, uv_atual
 
     if localizacao_cadastrada == True:
         desenho.limpar_tela()
@@ -132,6 +132,9 @@ def cadastrar_localizacao() -> None:
         cidade = input("Cidade: ")
 
         localizacao_cadastrada = True
+        uv_calculado = False
+        uv_atual = 0
+
         print("Cadastrando Localização...")
         desenho.esperar()
         print("Localização Registrada...")
@@ -284,6 +287,7 @@ while True:
 
         case "5":
             recomendacoes_protecao()
+            desenho.espera_entrada()
             
         case "6":
             print()
@@ -310,3 +314,5 @@ while True:
 #
 
 
+# Quando uv for calculado, só da para calcular de novo se mudar a localização
+# Implementar histórico de requisições de localização
