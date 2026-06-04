@@ -165,7 +165,13 @@ def risco_uv_usuario(uv):
 
 def mostra_descricao() -> None:
     desenho.titulo("DESCRIÇÃO DO PROJETO")
-    print(f"DESCRICAO")
+    print(f'''
+A plataforma usa dados da NASA para proteger a saúde humana contra efeitos do Sol.
+Ela monitora a radiação UV diária e alerta sobre tempestades solares.
+O sistema considera localização e perfil do usuário para gerar recomendações.
+Também informa riscos para grupos sensíveis, como cardíacos e pessoas com pele sensível.
+A solução une saúde, tecnologia espacial e prevenção em uma única plataforma.
+''')
     desenho.linha()
     desenho.espera_entrada()
 
