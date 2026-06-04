@@ -216,16 +216,19 @@ while True:
             cadastrar_localizacao()
 
         case "4":
-            desenho.linha(120)
-            mostrar_grau_uv()
-            desenho.linha(120)
-            input("[ENTER] para Calcular UV")  
-            calcular_uv()
-            print(f"Calculando UV, da região de {cidade}...")
-            desenho.esperar() 
-            risco_uv_usuario(calcular_uv())
-            desenho.espera_entrada()
-
+            if localizacao_cadastrada == False:
+                print("Cadastre uma localização antes de consultar o índice UV.")
+                desenho.espera_entrada()
+            else:
+                desenho.linha(120)
+                mostrar_grau_uv()
+                desenho.linha(120)
+                input("[ENTER] para calcular UV")
+                uv = calcular_uv()  
+                print(f"Calculando UV da região de {cidade}...")
+                desenho.esperar()
+                risco_uv_usuario(uv)
+                desenho.espera_entrada()
         case "5":
             print()
         
