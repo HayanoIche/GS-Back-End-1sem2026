@@ -63,9 +63,16 @@ def cadastrar_cliente() -> None:
 
         # Condicao
         validador = input("Você tem alguma condição especial? (S/N)")
-
+        
+        while validador != "s" and validador != "n":
+            print("Valor inválido!")
+            validador = input("Você tem alguma condição especial? (S/N) ").strip().lower()
+        
         if validador.strip().lower() == "s":
             condicao = input("Digite o nome dela: ")
+        
+        else:
+            condicao = "Nenhuma"
 
         # Cor da pele
         cores = ["branco", "pardo", "preto"]
@@ -79,6 +86,8 @@ def cadastrar_cliente() -> None:
         
         cliente_cadastrado = True
         print("Cadastrando Usuario...")
+        desenho.esperar()
+        print("Usuario cadastrado...")
     
     desenho.esperar(1)
 
@@ -124,6 +133,8 @@ def cadastrar_localizacao() -> None:
 
         localizacao_cadastrada = True
         print("Cadastrando Localização...")
+        desenho.esperar()
+        print("Localização Registrada...")
 
     desenho.esperar()
 
