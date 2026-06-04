@@ -62,7 +62,7 @@ def cadastrar_cliente() -> None:
                     break
 
         # Condicao
-        validador = input("Você tem alguma condição especial? (S/N)")
+        validador = input("Você tem alguma condição especial? (S/N)").strip().lower()
         
         while validador != "s" and validador != "n":
             print("Valor inválido!")
@@ -141,6 +141,9 @@ def cadastrar_localizacao() -> None:
 
 # ~~~~~~~~~ UV ~~~~~~~~~
 
+uv_calculado = False
+uv_atual = 0
+
 def calcular_uv() -> int:
     uv = random.randint(0, 16)
     return uv
@@ -171,6 +174,39 @@ def risco_uv_usuario(uv):
         risco = "Risco extremo"
 
     print(f"O UV atual da sua localização é {uv}, {risco}")
+
+
+def recomendacoes_protecao() -> None:
+    desenho.titulo("RECOMENDAÇÕES DE PROTEÇÃO")
+
+    if cliente_cadastrado == False:
+        print("Cadastre seus dados pessoais antes de ver recomendações.")
+        desenho.espera_entrada()
+        return
+
+    if localizacao_cadastrada == False:
+        print("Cadastre sua localização antes de ver recomendações.")
+        desenho.espera_entrada()
+        return
+    
+    if uv_calculado == False:   
+        print("Consulte o índice UV atual antes de ver recomendações.")
+        desenho.espera_entrada()
+        return    
+    
+    print(f"Índice UV atual em {cidade}: {uv_atual}")
+
+    if uv_atual <= 2:
+        print("Risco baixo. Use proteção básica se ficar muito tempo ao ar livre.")
+    elif uv_atual <= 5:
+        print("Risco moderado. Use protetor solar, óculos escuros e evite exposição prolongada.")
+    elif uv_atual <= 7:
+        print("Risco alto. Use protetor solar, boné/chapéu e procure sombra.")
+    elif uv_atual <= 10:
+        print("Risco muito alto. Evite sol forte entre 10h e 16h.")
+    else:
+        print("Risco extremo. Evite exposição direta e use proteção completa.")
+
 
 # ~~~~~~~~~ DESCRIÇÃO ~~~~~~~~~
 
@@ -230,19 +266,25 @@ while True:
             if localizacao_cadastrada == False:
                 print("Cadastre uma localização antes de consultar o índice UV.")
                 desenho.espera_entrada()
+           
             else:
                 desenho.linha(120)
                 mostrar_grau_uv()
                 desenho.linha(120)
+                
                 input("[ENTER] para calcular UV")
-                uv = calcular_uv()  
+                
+                uv_atual = calcular_uv()  
+                uv_calculado = True
+
                 print(f"Calculando UV da região de {cidade}...")
                 desenho.esperar()
-                risco_uv_usuario(uv)
+                risco_uv_usuario(uv_atual)
                 desenho.espera_entrada()
+
         case "5":
-            print()
-        
+            recomendacoes_protecao()
+            
         case "6":
             print()
         
