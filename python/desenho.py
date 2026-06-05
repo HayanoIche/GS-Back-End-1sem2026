@@ -15,14 +15,14 @@ import time
 
 # Função que desenha uma linha no terminal
 # O parametro Tam é o tamanho da linha em caracteres "~"
-def linha(tam: int = 60) -> None:
+def linha(tam: int = 80) -> None:
     print("~" * tam)
 
 
 # Função que desenha como se fosse um título
 def titulo(titulo: str) -> None:
     linha()
-    print(f"{titulo.upper():^60}")
+    print(f"{titulo.upper():^80}")
     linha()
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -91,14 +91,41 @@ def cadastrar_cliente() -> None:
     
     desenho.esperar(1)
 
-
 # ~~~~~~~~~ LOCALIZAÇÃO ~~~~~~~~~
 
 localizacao_cadastrada = False
+historico_localizacoes = []
 
 pais = ""
 estado = ""
 cidade = ""
+
+def consultar_historico() -> None:
+    desenho.titulo("HISTÓRICO DE LOCALIZAÇÕES")
+
+    if len(historico_localizacoes) == 0:
+        print("Nenhuma localização foi registrada ainda.")
+        desenho.espera_entrada()
+        return
+
+    for indice, registro in enumerate(historico_localizacoes, start=1):
+        print(f"{indice}. {registro['cidade']} - {registro['estado']} - {registro['pais']}")
+        print(f"   Índice UV: {registro['uv']}")
+        desenho.linha()
+
+    desenho.espera_entrada()
+
+
+def salvar_historico_localizacao() -> None:
+    registro = {
+        "pais": pais,
+        "estado": estado,
+        "cidade": cidade,
+        "uv": uv_atual
+    }
+
+    historico_localizacoes.append(registro)
+
 
 def cadastrar_localizacao() -> None:
     global localizacao_cadastrada, pais, estado, cidade, uv_calculado, uv_atual
@@ -106,14 +133,14 @@ def cadastrar_localizacao() -> None:
     if localizacao_cadastrada == True:
         desenho.limpar_tela()
         desenho.titulo("CADASTRO DE LOCALIZAÇÃO")
-        print("Localização já cadastrada!")
-        print("Deseja cadastrar de novo? (S/N)")
+        print("Já existe uma localização cadastrada")
+        print("Deseja cadastrar outra região? (S/N)")
         validador = input("")
         validador = validador.strip().lower()
 
         while validador != "s" and validador != "n":
             print("Valor inválido!")
-            print("Deseja cadastrar de novo? (S/N)")
+            print("Deseja cadastrar outra região? (S/N)")
             validador = input("")
             validador = validador.strip().lower()
         
@@ -132,14 +159,20 @@ def cadastrar_localizacao() -> None:
         cidade = input("Cidade: ")
 
         localizacao_cadastrada = True
-        uv_calculado = False
-        uv_atual = 0
+        uv_atual = calcular_uv()  
+        uv_calculado = True
+        salvar_historico_localizacao()
 
         print("Cadastrando Localização...")
+        desenho.esperar(1)
+        print("Localização Cadastrada...")
         desenho.esperar()
-        print("Localização Registrada...")
+        print(f"Calculando UV de {cidade}...")        
+        desenho.esperar()
+        print("UV Cadastrado...")
+        desenho.espera_entrada()
 
-    desenho.esperar()
+
 
 
 # ~~~~~~~~~ UV ~~~~~~~~~
@@ -176,7 +209,7 @@ def risco_uv_usuario(uv):
     else: 
         risco = "Risco extremo"
 
-    print(f"O UV atual da sua localização é {uv}, {risco}")
+    print(f"O UV atual de {cidade} é {uv}, {risco}")
 
 
 def recomendacoes_protecao() -> None:
@@ -184,17 +217,14 @@ def recomendacoes_protecao() -> None:
 
     if cliente_cadastrado == False:
         print("Cadastre seus dados pessoais antes de ver recomendações.")
-        desenho.espera_entrada()
         return
 
     if localizacao_cadastrada == False:
         print("Cadastre sua localização antes de ver recomendações.")
-        desenho.espera_entrada()
         return
     
     if uv_calculado == False:   
         print("Consulte o índice UV atual antes de ver recomendações.")
-        desenho.espera_entrada()
         return    
     
     print(f"Índice UV atual em {cidade}: {uv_atual}")
@@ -209,6 +239,7 @@ def recomendacoes_protecao() -> None:
         print("Risco muito alto. Evite sol forte entre 10h e 16h.")
     else:
         print("Risco extremo. Evite exposição direta e use proteção completa.")
+
 
 
 # ~~~~~~~~~ DESCRIÇÃO ~~~~~~~~~
@@ -237,7 +268,7 @@ def mostrar_menu_principal() -> None:
 3 - Cadastrar localização
 4 - Índice UV atual
 5 - Recomendações de proteção
-6 - Informações sobre grupos de risco
+6 - Histórico de registros de localizações
 0 - Sair
 ''')
 
@@ -274,14 +305,6 @@ while True:
                 desenho.linha(120)
                 mostrar_grau_uv()
                 desenho.linha(120)
-                
-                input("[ENTER] para calcular UV")
-                
-                uv_atual = calcular_uv()  
-                uv_calculado = True
-
-                print(f"Calculando UV da região de {cidade}...")
-                desenho.esperar()
                 risco_uv_usuario(uv_atual)
                 desenho.espera_entrada()
 
@@ -290,8 +313,8 @@ while True:
             desenho.espera_entrada()
             
         case "6":
-            print()
-        
+            consultar_historico()
+
         case "0":
             desenho.limpar_tela()
             desenho.titulo("HELION HEALTH")
