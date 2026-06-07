@@ -2,7 +2,7 @@ package br.com.helionhealth.model;
 
 import java.util.Random;
 
-public class CalculadorUV
+public class Calculador
 {
     // Atributos
     private int nivelUv;
@@ -15,7 +15,7 @@ public class CalculadorUV
     }
 
     // Construtor Vazio
-    public CalculadorUV() {}
+    public Calculador() {}
 
     // Metodo Worker
     public void calcularUv(Localizacao l)
