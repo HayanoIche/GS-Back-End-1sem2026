@@ -111,6 +111,7 @@ def consultar_historico() -> None:
     for indice, registro in enumerate(historico_localizacoes, start=1):
         print(f"{indice}. {registro['cidade']} - {registro['estado']} - {registro['pais']}")
         print(f"   Índice UV: {registro['uv']}")
+        print(f"   Índice KP: {registro['kp']}")
         desenho.linha()
 
     desenho.espera_entrada()
@@ -121,7 +122,8 @@ def salvar_historico_localizacao() -> None:
         "pais": pais,
         "estado": estado,
         "cidade": cidade,
-        "uv": uv_atual
+        "uv": uv_atual,
+        "kp": "Não calculado"
     }
 
     historico_localizacoes.append(registro)
@@ -172,9 +174,6 @@ def cadastrar_localizacao() -> None:
         print("UV Cadastrado...")
         desenho.espera_entrada()
 
-
-
-
 # ~~~~~~~~~ UV ~~~~~~~~~
 
 uv_calculado = False
@@ -187,29 +186,14 @@ def calcular_uv() -> int:
 
 def mostrar_grau_uv():
     print('''0 a 2 (Baixo): Risco mínimo. Seguro para exposição ao ar livre.
+          
 3 a 5 (Moderado): Risco moderado. Requer o uso de óculos de sol e proteção caso fique exposto ao sol.
+          
 6 a 7 (Alto): Risco alto. Proteção é essencial; procure sombra durante o meio do dia e use chapéu e protetor solar.
+          
 8 a 10 (Muito Alto): Risco muito alto. Requer proteção redobrada, pois queimaduras podem ocorrer rapidamente. Evite o sol entre 10h e 16h.
+          
 11 ou mais (Extremamente Alto): Risco extremo. A exposição desprotegida pode causar queimaduras em poucos minutos. Proteção total obrigatória.''')
-
-
-def risco_uv_usuario(uv):
-    if uv <= 2:
-        risco = "Risco mínimo"
-    
-    elif uv <= 5:
-        risco = "Risco moderado"
-    
-    elif uv <= 7:
-        risco = "Risco alto"
-    
-    elif uv <= 10:
-        risco = "Risco muito alto"
-    
-    else: 
-        risco = "Risco extremo"
-
-    print(f"O UV atual de {cidade} é {uv}, {risco}")
 
 
 def recomendacoes_protecao() -> None:
@@ -227,6 +211,9 @@ def recomendacoes_protecao() -> None:
         print("Consulte o índice UV atual antes de ver recomendações.")
         return    
     
+    mostrar_grau_uv()
+    desenho.linha()
+
     print(f"Índice UV atual em {cidade}: {uv_atual}")
 
     if uv_atual <= 2:
@@ -239,8 +226,6 @@ def recomendacoes_protecao() -> None:
         print("Risco muito alto. Evite sol forte entre 10h e 16h.")
     else:
         print("Risco extremo. Evite exposição direta e use proteção completa.")
-
-
 
 # ~~~~~~~~~ DESCRIÇÃO ~~~~~~~~~
 
@@ -256,6 +241,33 @@ A solução une saúde, tecnologia espacial e prevenção em uma única platafor
     desenho.linha()
     desenho.espera_entrada()
 
+# ~~~~~~~~~ INDICE KP ~~~~~~~~~
+
+kp_calculado = False
+kp_atual = 0
+
+def calcular_kp() -> int:
+    return random.randint(0, 9)
+
+
+def analisar_kp(kp: int) -> None:
+    if kp <= 3:
+        risco = "atividade geomagnética baixa"
+        recomendacao = "Sem risco relevante para a maioria das pessoas."
+    elif kp <= 5:
+        risco = "atividade geomagnética moderada"
+        recomendacao = "Pessoas sensíveis devem ficar atentas a sintomas e evitar esforço excessivo."
+    elif kp <= 7:
+        risco = "tempestade geomagnética forte"
+        recomendacao = "Recomenda-se atenção para pessoas com problemas cardíacos ou neurológicos."
+    else:
+        risco = "tempestade geomagnética severa"
+        recomendacao = "Alerta elevado. Pode afetar sistemas eletrônicos e pessoas sensíveis."
+
+    print(f"Índice KP atual: {kp}")
+    print(f"Classificação: {risco}")
+    print(f"Recomendação: {recomendacao}")
+
 # ~~~~~~~~~ MENU PRINCIPAL ~~~~~~~~~
 
 def mostrar_menu_principal() -> None:
@@ -266,8 +278,8 @@ def mostrar_menu_principal() -> None:
 1 - Descrição do projeto
 2 - Cadastrar dados pessoais
 3 - Cadastrar localização
-4 - Índice UV atual
-5 - Recomendações de proteção
+4 - Consultar índice KP / tempestade solar
+5 - Recomendações de proteção UV
 6 - Histórico de registros de localizações
 0 - Sair
 ''')
@@ -297,18 +309,41 @@ while True:
             cadastrar_localizacao()
 
         case "4":
-            if localizacao_cadastrada == False:
-                print("Cadastre uma localização antes de consultar o índice UV.")
-                desenho.espera_entrada()
-           
+            desenho.titulo("ÍNDICE KP / TEMPESTADE SOLAR")
+
+            if kp_calculado == True:
+                print("O índice KP já foi calculado.")
+                print("Deseja calcular novamente? (S/N)")
+                validador = input("").strip().lower()
+                desenho.limpar_tela()
+                while validador != "s" and validador != "n":
+                    print("Valor inválido!")
+                    print("Deseja calcular novamente? (S/N)")
+                    validador = input("").strip().lower()
+                    
+                if validador == "s":
+                    kp_atual = calcular_kp()
+                    kp_calculado = True
+                    analisar_kp(kp_atual)
+                    if len(historico_localizacoes) > 0:
+                        historico_localizacoes[-1]["kp"] = kp_atual
+                
+                    
+                else:
+                    print("Mantendo o índice KP anterior.")
+                    analisar_kp(kp_atual)
             else:
-                desenho.linha(120)
-                mostrar_grau_uv()
-                desenho.linha(120)
-                risco_uv_usuario(uv_atual)
-                desenho.espera_entrada()
+                kp_atual = calcular_kp()
+                kp_calculado = True
+                if len(historico_localizacoes) > 0:
+                    historico_localizacoes[-1]["kp"] = kp_atual
+                analisar_kp(kp_atual)
+
+            desenho.espera_entrada()
 
         case "5":
+            desenho.titulo("Escala e risco do índice UV")
+            mostrar_grau_uv()
             recomendacoes_protecao()
             desenho.espera_entrada()
             
@@ -330,12 +365,4 @@ while True:
             desenho.esperar(1)
             desenho.limpar_tela()
 
-# POSSIVEIS APIS:
-#
-# Open Street maps
-# Google api
-#
 
-
-# Quando uv for calculado, só da para calcular de novo se mudar a localização
-# Implementar histórico de requisições de localização
