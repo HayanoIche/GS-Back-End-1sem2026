@@ -6,12 +6,14 @@ public class Calculador
 {
     // Atributos
     private int nivelUv;
+    private int nivelKp;
 
     // toString
     @Override
     public String toString() {
-        return "CalculadorUV:" +
-                "\n  nivelUv" + nivelUv;
+        return "Calculador:" +
+                "\n  nivelUv" + nivelUv +
+                "\n  nivelKp" + nivelUv;
     }
 
     // Construtor Vazio
@@ -28,9 +30,10 @@ public class Calculador
         nivelUv = rng.nextInt(16);
     }
 
-    // Metodo acessor
-    public int getUV()
-    {
-        return nivelUv;
+    public void calcularKp(Localizacao l) {
+        nivelKp = 1;
     }
+
+    public int getUV() { return nivelUv; }
+    public int getKP() { return nivelKp; }
 }
