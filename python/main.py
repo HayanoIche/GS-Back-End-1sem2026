@@ -123,7 +123,7 @@ def salvar_historico_localizacao() -> None:
 
 
 def cadastrar_localizacao() -> None:
-    global localizacao_cadastrada, pais, estado, cidade, uv_calculado, uv_atual
+    global localizacao_cadastrada, pais, estado, cidade, uv_calculado, uv_atual, kp_calculado, kp_atual
 
     if localizacao_cadastrada == True:
         desenho.limpar_tela()
@@ -158,6 +158,8 @@ def cadastrar_localizacao() -> None:
         uv_atual = calcular_uv()  
         uv_calculado = True
         salvar_historico_localizacao()
+        kp_calculado = False
+        kp_atual = 0
 
         print(f"UV de {cidade} Cadastrado...")
         desenho.espera_entrada()
@@ -337,6 +339,11 @@ while True:
         case "4":
             desenho.titulo("ÍNDICE KP / TEMPESTADE SOLAR")
 
+            if localizacao_cadastrada == False:
+                print("Cadastre uma localização antes de consultar o índice KP.")
+                desenho.espera_entrada()
+                continue
+
             if kp_calculado == True:
                 print("O índice KP já foi calculado.")
                 print("Deseja calcular novamente? (S/N)")
@@ -350,10 +357,11 @@ while True:
                 if validador == "s":
                     kp_atual = calcular_kp()
                     kp_calculado = True
-                    analisar_kp(kp_atual)
+        
                     if len(historico_localizacoes) > 0:
                         historico_localizacoes[-1][4] = kp_atual
-                
+                    
+                    analisar_kp(kp_atual)
                     
                 else:
                     print("Mantendo o índice KP anterior.")
