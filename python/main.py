@@ -118,13 +118,7 @@ def consultar_historico() -> None:
 
 
 def salvar_historico_localizacao() -> None:
-    registro = {
-        "pais": pais,
-        "estado": estado,
-        "cidade": cidade,
-        "uv": uv_atual,
-        "kp": "Não calculado"
-    }
+    registro = [país, estado, cidade, índice_uv, índice_kp]
 
     historico_localizacoes.append(registro)
 
