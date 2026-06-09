@@ -189,21 +189,27 @@ def mostrar_grau_uv():
           
 11 ou mais (Extremamente Alto): Risco extremo. A exposição desprotegida pode causar queimaduras em poucos minutos. Proteção total obrigatória.''')
 
+
 def classificar_uv(uv: int) -> str:
     if uv <= 2:
         return "Risco baixo"
+    
     elif uv <= 5:
         return "Risco moderado"
+    
     elif uv <= 7:
         return "Risco alto"
+    
     elif uv <= 10:
         return "Risco muito alto"
+    
     else:
         return "Risco extremo"
 
+
 def recomendacoes_protecao() -> None:
     desenho.titulo("RECOMENDAÇÕES DE PROTEÇÃO")
-
+    print()
     if cliente_cadastrado == False:
         print("Cadastre seus dados pessoais antes de ver recomendações.")
         return
@@ -217,12 +223,28 @@ def recomendacoes_protecao() -> None:
         return    
     
     mostrar_grau_uv()
+    print()
     desenho.linha()
-
+    print()
     print(f"Índice UV atual em {cidade}: {uv_atual}")
 
     risco = classificar_uv(uv_atual)
     print(f"Classificação: {risco}")
+
+    if uv_atual <= 2:
+        print("Recomendação: Use proteção básica caso fique muito tempo ao ar livre.")
+
+    elif uv_atual <= 5:
+        print("Recomendação: Use protetor solar, óculos escuros e evite exposição prolongada.")
+
+    elif uv_atual <= 7:
+        print("Recomendação: Use protetor solar, boné ou chapéu e procure sombra.")
+
+    elif uv_atual <= 10:
+        print("Recomendação: Evite o sol forte entre 10h e 16h e use proteção reforçada.")
+
+    else:
+        print("Recomendação: Evite exposição direta e use proteção completa.")
 
 # ~~~~~~~~~ DESCRIÇÃO ~~~~~~~~~
 
@@ -250,10 +272,13 @@ def calcular_kp() -> int:
 def classificar_kp(kp: int) -> str:
     if kp <= 3:
         return "atividade geomagnética baixa"
+    
     elif kp <= 5:
         return "atividade geomagnética moderada"
+    
     elif kp <= 7:
         return "tempestade geomagnética forte"
+    
     else:
         return "tempestade geomagnética severa"
 
@@ -263,14 +288,17 @@ def analisar_kp(kp: int) -> None:
 
     if kp <= 3:
         recomendacao = "Sem risco relevante para a maioria das pessoas."
+
     elif kp <= 5:
         recomendacao = "Pessoas sensíveis devem ficar atentas a sintomas e evitar esforço excessivo."
+
     elif kp <= 7:
         recomendacao = "Recomenda-se atenção para pessoas com problemas cardíacos ou neurológicos."
+        
     else:
         recomendacao = "Alerta elevado. Pode afetar sistemas eletrônicos e pessoas sensíveis."
 
-    print(f"Índice KP atual: {kp}")
+    print(f"Índice KP atual de {cidade}: {kp}")
     print(f"Classificação: {risco}")
     print(f"Recomendação: {recomendacao}")
 
@@ -343,13 +371,12 @@ while True:
                 kp_calculado = True
                 if len(historico_localizacoes) > 0:
                     historico_localizacoes[-1][4] = kp_atual
+               
                 analisar_kp(kp_atual)
 
             desenho.espera_entrada()
 
         case "5":
-            desenho.titulo("Escala e risco do índice UV")
-            mostrar_grau_uv()
             recomendacoes_protecao()
             desenho.espera_entrada()
             
