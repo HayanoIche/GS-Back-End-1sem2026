@@ -32,8 +32,6 @@ def titulo(titulo: str) -> None:
 def limpar_tela():
     os.system("cls")
 
-def esperar(tempo: float = .75) -> None:
-    time.sleep(tempo)
 
 def espera_entrada() -> None:
     print("")

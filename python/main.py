@@ -85,11 +85,10 @@ def cadastrar_cliente() -> None:
             cor = input("").lower().strip()
         
         cliente_cadastrado = True
-        print("Cadastrando Usuario...")
-        desenho.esperar()
+        
         print("Usuario cadastrado...")
     
-    desenho.esperar(1)
+    desenho.espera_entrada()
 
 # ~~~~~~~~~ LOCALIZAÇÃO ~~~~~~~~~
 
@@ -142,6 +141,7 @@ def cadastrar_localizacao() -> None:
         
         if validador == "s":
             localizacao_cadastrada = False
+
         else:
             print("saindo. . .")
     
@@ -159,13 +159,7 @@ def cadastrar_localizacao() -> None:
         uv_calculado = True
         salvar_historico_localizacao()
 
-        print("Cadastrando Localização...")
-        desenho.esperar(1)
-        print("Localização Cadastrada...")
-        desenho.esperar()
-        print(f"Calculando UV de {cidade}...")        
-        desenho.esperar()
-        print("UV Cadastrado...")
+        print(f"UV de {cidade} Cadastrado...")
         desenho.espera_entrada()
 
 # ~~~~~~~~~ UV ~~~~~~~~~
@@ -294,7 +288,7 @@ def analisar_kp(kp: int) -> None:
 
     elif kp <= 7:
         recomendacao = "Recomenda-se atenção para pessoas com problemas cardíacos ou neurológicos."
-        
+
     else:
         recomendacao = "Alerta elevado. Pode afetar sistemas eletrônicos e pessoas sensíveis."
 
@@ -323,8 +317,6 @@ def mostrar_menu_principal() -> None:
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 desenho.limpar_tela()
-desenho.titulo("BEM VINDO AO HELION HEALTH")
-desenho.esperar(1.5)
 
 while True:
     mostrar_menu_principal()
@@ -384,18 +376,13 @@ while True:
             consultar_historico()
 
         case "0":
-            desenho.limpar_tela()
-            desenho.titulo("HELION HEALTH")
-            print("\nSaindo. . .\n")
-            desenho.esperar(1)
-            desenho.limpar_tela()
             break
         
         case _:
             desenho.limpar_tela()
             desenho.titulo("HELION HEALTH")
             print("\nDigite um valor válido!\n")
-            desenho.esperar(1)
+            desenho.espera_entrada()
             desenho.limpar_tela()
 
 
