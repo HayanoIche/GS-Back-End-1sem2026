@@ -14,6 +14,7 @@ idade = 0
 condicao = ""
 cor = ""
 
+# Realiza o cadastro dos dados pessoais do usuário.
 def cadastrar_cliente() -> None:
     global cliente_cadastrado, nome, idade, condicao, cor
     
@@ -99,6 +100,7 @@ pais = ""
 estado = ""
 cidade = ""
 
+# Exibe o histórico de localizações cadastradas pelo usuário.
 def consultar_historico() -> None:
     desenho.titulo("HISTÓRICO DE LOCALIZAÇÕES")
 
@@ -115,13 +117,13 @@ def consultar_historico() -> None:
 
     desenho.espera_entrada()
 
-
+# Salva a localização atual, o índice UV e o índice KP no histórico.
 def salvar_historico_localizacao() -> None:
     registro = [pais, estado, cidade, uv_atual, "Não calculado"]
 
     historico_localizacoes.append(registro)
 
-
+# Realiza o cadastro da localização do usuário e calcula o índice UV inicial
 def cadastrar_localizacao() -> None:
     global localizacao_cadastrada, pais, estado, cidade, uv_calculado, uv_atual, kp_calculado, kp_atual
 
@@ -169,11 +171,12 @@ def cadastrar_localizacao() -> None:
 uv_calculado = False
 uv_atual = 0
 
+# Simula o cálculo do índice UV.
 def calcular_uv() -> int:
     uv = random.randint(0, 16)
     return uv
 
-
+# Exibe a escala de classificação do índice UV.
 def mostrar_grau_uv():
     print('''0 a 2 (Baixo): Risco mínimo. Seguro para exposição ao ar livre.
           
@@ -185,7 +188,7 @@ def mostrar_grau_uv():
           
 11 ou mais (Extremamente Alto): Risco extremo. A exposição desprotegida pode causar queimaduras em poucos minutos. Proteção total obrigatória.''')
 
-
+# Classifica o nível de risco do índice UV informado.
 def classificar_uv(uv: int) -> str:
     if uv <= 2:
         return "Risco baixo"
@@ -202,7 +205,7 @@ def classificar_uv(uv: int) -> str:
     else:
         return "Risco extremo"
 
-
+# Exibe recomendações de proteção com base no índice UV calculado.
 def recomendacoes_protecao() -> None:
     desenho.titulo("RECOMENDAÇÕES DE PROTEÇÃO")
     print()
@@ -261,10 +264,11 @@ A solução une saúde, tecnologia espacial e prevenção em uma única platafor
 kp_calculado = False
 kp_atual = 0
 
+# Simula o cálculo do índice KP.
 def calcular_kp() -> int:
     return random.randint(0, 9)
 
-
+# Classifica o nível de atividade geomagnética com base no índice KP.
 def classificar_kp(kp: int) -> str:
     if kp <= 3:
         return "atividade geomagnética baixa"
@@ -278,7 +282,7 @@ def classificar_kp(kp: int) -> str:
     else:
         return "tempestade geomagnética severa"
 
-
+# Exibe a análise do índice KP e uma recomendação relacionada à tempestade solar.
 def analisar_kp(kp: int) -> None:
     risco = classificar_kp(kp)
 
@@ -300,6 +304,7 @@ def analisar_kp(kp: int) -> None:
 
 # ~~~~~~~~~ MENU PRINCIPAL ~~~~~~~~~
 
+# Exibe o menu principal do sistema no terminal.
 def mostrar_menu_principal() -> None:
     desenho.limpar_tela()
     desenho.titulo("HELION HEALTH")
