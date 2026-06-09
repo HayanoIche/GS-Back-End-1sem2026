@@ -10,6 +10,8 @@ public class Cliente
     private String condicao;
     private String cor;
 
+    private Localizacao localizacao;
+
     // Construtores
     // Construtor Vazio
     public Cliente() {}
@@ -37,22 +39,20 @@ public class Cliente
     public LocalDate getDataNascimento() { return dataNascimento; }
     public String getCondicao() { return condicao; }
     public String getCor() { return cor; }
+    public Localizacao getLocalizacao() { return localizacao; }
 
     public void setNome(String nome) { this.nome = nome; }
     public void setDataNascimento(LocalDate dataNascimento) { this.dataNascimento = dataNascimento; }
     public void setCondicao(String condicao) { this.condicao = condicao; }
     public void setCor(String cor) { this.cor = cor; }
+    public void setLocalizacao(Localizacao localizacao) { this.localizacao = localizacao; }
 
     // Métodos Workers
     public int calcularIdade()
     {
+        if (this.dataNascimento == null) return 0;
         LocalDate hoje = LocalDate.now();
-
-        int dia = hoje.getDayOfMonth();
-        int mes = hoje.getMonthValue();
-        int ano = hoje.getYear();
-
-        return 0;
+        return java.time.Period.between(this.dataNascimento, hoje).getYears();
     }
 
     public String pegarGrupoGeracional()

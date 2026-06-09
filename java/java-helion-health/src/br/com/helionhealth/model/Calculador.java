@@ -13,13 +13,13 @@ public class Calculador
     public String toString() {
         return "Calculador:" +
                 "\n  nivelUv" + nivelUv +
-                "\n  nivelKp" + nivelUv;
+                "\n  nivelKp" + nivelKp;
     }
 
     // Construtor Vazio
     public Calculador() {}
 
-    // Metodo Worker
+    // Metodos Workers
     public void calcularUv(Localizacao l)
     {
         // Aqui iria o código que chama a API pra pegar o nível de UV
@@ -30,8 +30,13 @@ public class Calculador
         nivelUv = rng.nextInt(16);
     }
 
-    public void calcularKp(Localizacao l) {
-        nivelKp = 1;
+    public void calcularKp(Localizacao l)
+    {
+        // Aqui iria o código que chama a API pra pegar o nível de KP
+        // Porém por agora vamos só deixar o KP um valor aleatório
+
+        Random rng = new Random();
+        nivelKp = rng.nextInt(9);
     }
 
     public int getUV() { return nivelUv; }
